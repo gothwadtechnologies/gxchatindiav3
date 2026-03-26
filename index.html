@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="GxChat" />
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>GxChat India</title>
+    <script>
+      // Unregister all service workers to ensure the preview updates correctly in AI Studio
+      try {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+              registration.unregister();
+              console.log('Service Worker unregistered');
+            }
+          }).catch(err => console.warn('Service Worker registration error:', err));
+        }
+      } catch (e) {
+        console.warn('Service Worker access denied');
+      }
+      
+      // Also clear caches to be absolutely sure
+      try {
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (let name of names) {
+              caches.delete(name);
+              console.log('Cache cleared:', name);
+            }
+          }).catch(err => console.warn('Cache access error:', err));
+        }
+      } catch (e) {
+        console.warn('CacheStorage access denied');
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
